@@ -14,9 +14,11 @@ import java.io.PrintWriter;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  *
@@ -45,8 +47,15 @@ public class UserController extends HttpServlet {
         String reqPage=request.getHeader("referer");
         if(reqPage.contains("Login")){
             User u=new User(mailId, password);
-            if(ud.read(u).getFirstName()!=null){
-                rd=request.getRequestDispatcher("Welcome.jsp");
+            HttpSession session=request.getSession();
+            u=ud.read(u);
+            session.setAttribute("user", u);
+            if(u.getFirstName()!=null){
+                Cookie c1=new Cookie("phone", u.getPhoneNumber());
+                Cookie c2=new Cookie("pass", u.getPassword());
+                response.addCookie(c1);
+                response.addCookie(c2);
+                rd=request.getRequestDispatcher("Welcome.jsp?name="+u.getFirstName()+" "+u.getLastName());
                 rd.forward(request, response);
             }else{
                 rd=request.getRequestDispatcher("Login.jsp");
