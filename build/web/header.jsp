@@ -5,6 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
     <head>
@@ -50,6 +51,14 @@
                 <a href='#'>Contact Us</a> | 
                 <a href='#'>Help</a> | 
                 <a href='#'>feedback</a>
+                <c:if test="${not empty user}">
+                    <a href="#">Logout</a>
+                    <a href='#'>Hi ${user.firstName} !</a>
+                </c:if>
+                <c:if test="${empty user}">
+                    <a href="#">Login</a>
+                    <a href='#'>Sign Up</a>
+                </c:if>
             </nav>
         </div>
     </body>

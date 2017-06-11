@@ -23,16 +23,19 @@ public class UserDAOImpl implements UserDAO{
     public int create(User u) {
         int i=0;
         try{
+            if(isNewUser(u)){
         ds.setCon();
-        ds.setSt("insert into Users(firstName,lastName,mailId,phoneNumber,password) values(?,?,?,?,?)");
+        ds.setSt("insert into Users(firstName,lastName,mailId,phoneNumber,password,status) values(?,?,?,?,?,?)");
         ds.getSt().setString(1,u.getFirstName());
         ds.getSt().setString(2,u.getLastName());
         ds.getSt().setString(3,u.getMailId());
         ds.getSt().setString(4,u.getPhoneNumber());
         ds.getSt().setString(5,u.getPassword());
+        ds.getSt().setString(6,u.getStatus());
         i=ds.getSt().executeUpdate();
         ds.getCon().commit();
         ds.getCon().close();
+            }
         }catch(Exception e){
             System.err.println(e);
         }
@@ -51,6 +54,8 @@ public class UserDAOImpl implements UserDAO{
                     u.setFirstName(rs.getString("firstName"));
                     u.setLastName(rs.getString("lastName"));
                     u.setPhoneNumber(rs.getString("phoneNumber"));
+                    u.setId(rs.getInt("Id"));
+                    u.setStatus(rs.getString("status"));
                 }
             }
         }catch(Exception e){
@@ -67,6 +72,21 @@ public class UserDAOImpl implements UserDAO{
     @Override
     public int delete(User u) {
         return 0;
+    }
+    
+    public boolean isNewUser(User u){
+        try{
+            ds.setCon();
+            ds.setSt("select * from Users where mailId=?");
+            ds.getSt().setString(1, u.getMailId());
+            ResultSet rs = ds.getSt().executeQuery();
+            if(rs.next()){
+                return false;
+            }
+        }catch(Exception e){
+            System.err.println(e);
+        }
+        return true;
     }
     
     public static void main(String[] arg){

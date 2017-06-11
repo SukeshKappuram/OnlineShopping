@@ -6,11 +6,18 @@
 
 package com.onlineshopping.controller;
 
+import com.onlineshopping.DAO.RoleDAO;
 import com.onlineshopping.DAO.UserDAO;
+import com.onlineshopping.model.Role;
 import com.onlineshopping.model.User;
+import com.onlineshopping.service.MailService;
+import com.onlineshopping.service.RoleDAOImpl;
 import com.onlineshopping.service.UserDAOImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -50,12 +57,12 @@ public class UserController extends HttpServlet {
             HttpSession session=request.getSession();
             u=ud.read(u);
             session.setAttribute("user", u);
-            if(u.getFirstName()!=null){
-                Cookie c1=new Cookie("phone", u.getPhoneNumber());
-                Cookie c2=new Cookie("pass", u.getPassword());
-                response.addCookie(c1);
-                response.addCookie(c2);
-                rd=request.getRequestDispatcher("Welcome.jsp?name="+u.getFirstName()+" "+u.getLastName());
+            if(u.getId()>0){
+                if(u.getStatus().equals("InValid")){
+                    rd=request.getRequestDispatcher("Login.jsp?otp=r");
+                }else{
+                    rd=request.getRequestDispatcher("Welcome.jsp?name="+u.getFirstName()+" "+u.getLastName());
+                }
                 rd.forward(request, response);
             }else{
                 rd=request.getRequestDispatcher("Login.jsp");
@@ -73,12 +80,28 @@ public class UserController extends HttpServlet {
         
         if(password.equals(confirmpassword)){
             User u=new User(firstName, lastName, mailId, phoneNumber, password);
-            
+            u.setGender(gender.charAt(0));
                 if(ud.create(u)>0){
+                    u=ud.read(u);
+                    Role r=new Role("Customer", u.getId());
+                    RoleDAO rdo=new RoleDAOImpl();
+                    rdo.createRole(r);
+                    MailService ms=new MailService();
+                try {
+                    ms.verifyMail(mailId, firstName+" "+lastName);
+                    out.print("OTP Sent!!");
+                } catch (SQLException ex) {
+                    out.print("please check your Internet Status");
+                }
                     out.println("User Registered Successfully!!");
+                    out.println("Click <a href='Login.jsp'>here</a> to Login!!");
+                }else{
+                    out.println("Mail Id Already Existing!!");
                 }
         }
         else{
+             //request.setAttribute("pass", "auto");
+            rd=request.getRequestDispatcher("SignUp.jsp?pass=auto");
              out.println("Password Mismatch!!");
         }
         rd.include(request, response);

@@ -12,6 +12,7 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <%@include file="header.jsp" %>
          <form action="User" method="post">
             <table>
                 <tr>
@@ -24,6 +25,13 @@
                         <input type="password" name="password" placeholder="Password" required="true"/>
                     </td>
                 </tr>
+                <c:if test="${not empty param.otp}">
+                <tr>
+                    <td>
+                        <input type="text" name="OTP" placeholder="OTP" pattern="0-9{6}" required="true"/>
+                    </td>
+                </tr>
+                </c:if>
                 <tr>
                     <td>
                         <input type="reset" name="cancelBtn" placeholder="Cancel" />

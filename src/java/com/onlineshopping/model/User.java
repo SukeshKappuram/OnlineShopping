@@ -16,14 +16,17 @@ public class User {
     private String lastName;
     private String mailId;
     private String phoneNumber;
+    private char gender;
     private String password;
-
+    private String status;
+    
     public User(String firstName, String lastName, String mailId, String phoneNumber, String password) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.mailId = mailId;
         this.phoneNumber = phoneNumber;
         this.password = password;
+        this.status="InValid";
     }
 
     public User(String mailId, String password) {
@@ -77,6 +80,22 @@ public class User {
 
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
+    }
+
+    public char getGender() {
+        return gender;
+    }
+
+    public void setGender(char gender) {
+        this.gender = gender;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
     
     

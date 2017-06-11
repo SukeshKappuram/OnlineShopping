@@ -13,7 +13,7 @@
         <title>JSP Page</title>
     </head>
     <body>
-        <h1>Hi <%=request.getParameter("name")%> !</h1>
+        <%@include file="header.jsp" %>
         <%
             Cookie[] cookies=request.getCookies();
             for(Cookie c:cookies){
