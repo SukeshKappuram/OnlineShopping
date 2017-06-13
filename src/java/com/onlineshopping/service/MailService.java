@@ -49,7 +49,7 @@ public class MailService {
     
     public boolean sendMail(String toMail,String userName,String OTP){
         String fromMail="sukesh.niithabsiguda@gmail.com";
-        String password="";
+        String password="iluVirat#IND";
         String sub="OnlineShopping - Verification";
         String msg="";
             

@@ -50,17 +50,21 @@ public class UserController extends HttpServlet {
         String mailId=request.getParameter("mailId");
         String password=request.getParameter("password");
         UserDAO ud=new UserDAOImpl();
+        RoleDAO rdo=new RoleDAOImpl();
          RequestDispatcher rd=request.getRequestDispatcher("SignUp.jsp");
         String reqPage=request.getHeader("referer");
         if(reqPage.contains("Login")){
             User u=new User(mailId, password);
             HttpSession session=request.getSession();
             u=ud.read(u);
-            session.setAttribute("user", u);
+            String OTP=request.getParameter("OTP");
             if(u.getId()>0){
-                if(u.getStatus().equals("InValid")){
+                session.setAttribute("roles",rdo.readRole(new Role(u.getId())));
+                if(!ud.validateUser(u,OTP)){
+                    out.print("Invalid OTP Please try again!!");
                     rd=request.getRequestDispatcher("Login.jsp?otp=r");
                 }else{
+                    session.setAttribute("user", u);
                     rd=request.getRequestDispatcher("Welcome.jsp?name="+u.getFirstName()+" "+u.getLastName());
                 }
                 rd.forward(request, response);
@@ -75,7 +79,6 @@ public class UserController extends HttpServlet {
         String phoneNumber=request.getParameter("phoneNumber");
         String gender=request.getParameter("gender");
         String confirmpassword=request.getParameter("confirmpassword");
-        
        
         
         if(password.equals(confirmpassword)){
@@ -84,7 +87,7 @@ public class UserController extends HttpServlet {
                 if(ud.create(u)>0){
                     u=ud.read(u);
                     Role r=new Role("Customer", u.getId());
-                    RoleDAO rdo=new RoleDAOImpl();
+                    
                     rdo.createRole(r);
                     MailService ms=new MailService();
                 try {

@@ -14,6 +14,7 @@
     <body>
         <%
             session.setAttribute("user", null);
+            session.setAttribute("roles", null);
         %>
         <p>You are logged out successfully click <a href="Login.jsp">here</a> to Login</p>
     </body>

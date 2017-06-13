@@ -25,10 +25,17 @@
                         <input type="password" name="password" placeholder="Password" required="true"/>
                     </td>
                 </tr>
+                <c:if test="${not empty param.forgot}">
+                <tr>
+                    <td>
+                        <input type="password" name="cpassword" placeholder="New Password" required="true"/>
+                    </td>
+                </tr>
+                </c:if>
                 <c:if test="${not empty param.otp}">
                 <tr>
                     <td>
-                        <input type="text" name="OTP" placeholder="OTP" pattern="0-9{6}" required="true"/>
+                        <input type="text" name="OTP" placeholder="OTP"  required="true"/>
                     </td>
                 </tr>
                 </c:if>

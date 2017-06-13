@@ -10,6 +10,7 @@ import com.onlineshopping.DAO.UserDAO;
 import com.onlineshopping.db.DataSource;
 import com.onlineshopping.model.User;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 
 /**
  *
@@ -41,6 +42,33 @@ public class UserDAOImpl implements UserDAO{
         }
         return i; 
     }
+    
+    public boolean validateUser(User u,String OTP) {
+        try{
+        if(u.getStatus().equals("InValid") && OTP==null){
+            return false;
+        }
+        else if(u.getOTP().equals(OTP)){
+            ds.getCon();
+            ds.setSt("Update Users set status = 'Valid' where Id=?");
+            ds.getSt().setInt(1, u.getId());
+            ds.getSt().executeUpdate();
+            ds.getCon().commit();
+            ds.getCon().close();
+            return true;
+        }
+        else if(u.getStatus().equals("Valid")){
+            return true;
+        }
+        else{
+            MailService ms=new MailService();
+            ms.verifyMail(u.getMailId(), u.getFirstName()+" "+u.getLastName());
+        }
+        }catch(SQLException e){
+               System.out.println(e);
+        }
+        return false;
+    }
 
     @Override
     public User read(User u) {
@@ -56,6 +84,7 @@ public class UserDAOImpl implements UserDAO{
                     u.setPhoneNumber(rs.getString("phoneNumber"));
                     u.setId(rs.getInt("Id"));
                     u.setStatus(rs.getString("status"));
+                    u.setOTP(rs.getString("OTP"));
                 }
             }
         }catch(Exception e){
@@ -63,6 +92,7 @@ public class UserDAOImpl implements UserDAO{
         }
         return u;
     }
+    
 
     @Override
     public int update(User u) {
@@ -91,7 +121,8 @@ public class UserDAOImpl implements UserDAO{
     
     public static void main(String[] arg){
         UserDAO ud=new UserDAOImpl();
-        User u=new User("imvirat@mymail.com", "1234567");
+        User u=new User("iamsukeshk@gmail.com", "123");
         System.out.println(ud.read(u).getFirstName());
+        System.out.println(ud.validateUser(ud.read(u),"329832"));
     }
 }

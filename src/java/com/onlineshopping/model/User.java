@@ -19,6 +19,7 @@ public class User {
     private char gender;
     private String password;
     private String status;
+    private String OTP;
     
     public User(String firstName, String lastName, String mailId, String phoneNumber, String password) {
         this.firstName = firstName;
@@ -97,6 +98,13 @@ public class User {
     public void setStatus(String status) {
         this.status = status;
     }
-    
+
+    public String getOTP() {
+        return OTP;
+    }
+
+    public void setOTP(String OTP) {
+        this.OTP = OTP;
+    }
     
 }

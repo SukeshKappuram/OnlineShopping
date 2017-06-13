@@ -6,6 +6,7 @@
 
 package com.onlineshopping.DAO;
 import com.onlineshopping.model.User;
+import java.sql.SQLException;
 /**
  *
  * @author iamsu
@@ -15,4 +16,5 @@ public interface UserDAO {
     public User read(User u);
     public int update(User u);
     public int delete(User u);
+    public boolean validateUser(User u,String OTP);
 }

@@ -52,12 +52,18 @@
                 <a href='#'>Help</a> | 
                 <a href='#'>feedback</a>
                 <c:if test="${not empty user}">
-                    <a href="#">Logout</a>
+                    <a href="logout.jsp">Logout</a>
                     <a href='#'>Hi ${user.firstName} !</a>
                 </c:if>
                 <c:if test="${empty user}">
                     <a href="#">Login</a>
                     <a href='#'>Sign Up</a>
+                </c:if>
+                <c:if test="${roles[1].roleName=='Admin'}">
+                    <a href="admin.jsp">Manage Site</a>
+                </c:if>
+                <c:if test="${roles[1].roleName=='Seller'}">
+                    <a href="seller.jsp">Manage Store</a>
                 </c:if>
             </nav>
         </div>
