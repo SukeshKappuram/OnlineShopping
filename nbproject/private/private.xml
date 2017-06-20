@@ -2,12 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/iamsu/Documents/NetBeansProjects/OnlineShopping/web/SignUp.jsp</file>
-            <file>file:/C:/Users/iamsu/Documents/NetBeansProjects/OnlineShopping/web/Welcome.jsp</file>
-            <file>file:/C:/Users/iamsu/Documents/NetBeansProjects/OnlineShopping/web/header.jsp</file>
-            <file>file:/C:/Users/iamsu/Documents/NetBeansProjects/OnlineShopping/src/java/com/onlineshopping/model/User.java</file>
-            <file>file:/C:/Users/iamsu/Documents/NetBeansProjects/OnlineShopping/src/java/com/onlineshopping/controller/UserController.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>

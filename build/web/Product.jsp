@@ -17,41 +17,41 @@
             <table>
                 <tr>
                     <td>
-                        <input type="text" name="productName" placeholder="Product Name" value="${Category.name}" />
+                        <input type="text" name="productName" placeholder="Product Name" value="${product.name}" />
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <textarea name="description" rows="4" cols="20" placeholder="Description">${Category.description}
+                        <textarea name="description" rows="4" cols="20" placeholder="Description">${product.description}
                         </textarea>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <input type="text" name="price" placeholder="MRP" value="${Category.price}" />
+                        <input type="text" name="price" placeholder="MRP" value="${product.price}" />
                     </td>
                 </tr>
                 <tr>
                     <td>
                         <select name="categoryId">
-                            <option> Select </option>
                             <c:forEach var='c' items="${categories}">
                             <option value="${c.id}">${c.name}</option>
                             </c:forEach>
                         </select>
+                        <input type="text" name="pid" value="${product.id}"/>
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <input type="text" name="manufactureName" placeholder="Manufacture Name" value="${Category.manufacturename}" />
+                        <input type="text" name="manufactureName" placeholder="Manufacture Name" value="${product.manufacturename}" />
                     </td>
                 </tr>
                 <tr>
                     <td>
-                        <c:if test="${empty Product}">
+                        <c:if test="${empty product}">
                             <input type="submit" value="Add Product" formaction="Product?m=c"/>
                         </c:if>
-                        <c:if test="${not empty Product}">
+                        <c:if test="${not empty product}">
                             <input type="hidden" value="${Product.id}" name="id"/>
                             <input type="submit" value="Update Product" formaction="Product?m=u" />
                         </c:if>
@@ -76,8 +76,8 @@
                     <td>${p.price}</td>
                     <td>${p.manufacturename}</td>
                     <td>${p.categoryId}</td>
-                    <td><a href="Product?m=e&&id=${c.id}">Edit</a></td>
-                    <td><a href="Product?m=d&&id=${c.id}">delete</a></td>
+                    <td><a href="Product?m=e&&id=${p.id}">Edit</a></td>
+                    <td><a href="Product?m=d&&id=${p.id}">delete</a></td>
                 </tr>
             </c:forEach>
         </table>

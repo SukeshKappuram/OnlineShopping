@@ -6,16 +6,18 @@
 
 package com.onlineshopping.controller;
 
-import com.onlineshopping.DAO.CategoryDAO;
 import com.onlineshopping.DAO.ProductDAO;
-import com.onlineshopping.model.Category;
-import com.onlineshopping.model.Product;
-import com.onlineshopping.service.CategoryDAOImpl;
+import com.onlineshopping.DAO.ProductDetailsDAO;
+import com.onlineshopping.model.ProductDetails;
 import com.onlineshopping.service.ProductDAOImpl;
+import com.onlineshopping.service.ProductDetailsDAOImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.List;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -27,8 +29,8 @@ import javax.servlet.http.HttpSession;
  *
  * @author iamsu
  */
-@WebServlet(name = "ProductController", urlPatterns = {"/Product"})
-public class ProductController extends HttpServlet {
+@WebServlet(name = "ProductDetailsController", urlPatterns = {"/ProductDetails"})
+public class ProductDetailsController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -42,53 +44,45 @@ public class ProductController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        PrintWriter out = response.getWriter();
-        CategoryDAO cd=new CategoryDAOImpl();
-        ProductDAO pd=new ProductDAOImpl();
+        PrintWriter out=response.getWriter();
         HttpSession session=request.getSession();
-        session.setAttribute("categories", cd.read());
-        session.setAttribute("products", pd.read());
-        String mode=request.getParameter("m");
-        if(mode.equals("c") || mode.equals("u")){
-            String name=request.getParameter("productName");
-            String description=request.getParameter("description");
-            float price=Float.parseFloat(request.getParameter("price"));
-            int categoryId=Integer.parseInt(request.getParameter("categoryId"));
-            String manufactureName=request.getParameter("manufactureName");
-            Product p=new Product(name, description, price, categoryId, manufactureName);
-            if(!mode.equals("u")){
-                pd.create(p);
-            }
-            if(mode.equals("u")){
-                int productId=Integer.parseInt(request.getParameter("pid"));
-                p.setId(productId);
-                pd.update(p);
-                session.setAttribute("product", null);
-            }
-        }else if(mode.equals("r")){
         
+        String mode=request.getParameter("m");
+        ProductDetailsDAO pdd=new ProductDetailsDAOImpl();
+        ProductDAO pdo=new ProductDAOImpl();
+        if(mode.equals("r")){
+            session.setAttribute("products",pdo.read());
         }
         else{
-            int productId=Integer.parseInt(request.getParameter("id"));
-            Product p=pd.read(new Product(productId));
-            if(mode.equals("e")){
-                session.setAttribute("product", p);
-                List<Category> categories=new ArrayList<>();
-                Category pc=cd.read(new Category(p.getCategoryId()));
-                out.println("Category "+pc.getName());
-                categories.add(pc);
-                for(Category c:cd.read()){
-                    if(!c.getName().equals(pc.getName())){
-                        categories.add(c);
-                    }
-                }
-                session.setAttribute("categories", categories);
-            }
-            if(mode.equals("d")){
-                pd.delete(p);
-            }
+        long serialNumber=Long.parseLong(request.getParameter("serialNumber"));
+        int sellerId=0;
+        
+        if(mode.equals("c")){
+            int productId=Integer.parseInt(request.getParameter("productId"));
+            String sManufactureDate=request.getParameter("manufactureDate");
+            String sExpieryDate=request.getParameter("expieryDate");
+            String size=request.getParameter("size");
+            String color=request.getParameter("color");
+        
+            out.print(sManufactureDate);
+            SimpleDateFormat sdf=new SimpleDateFormat("yyyy-MM-dd");
+            Date manufactureDate=null,expieryDate=null;
+            try {
+                manufactureDate = sdf.parse(sManufactureDate);
+                expieryDate=sdf.parse(sExpieryDate);
+            } catch (ParseException ex) {}
+        
+            ProductDetails pd=new ProductDetails(serialNumber, productId, 
+                new java.sql.Date(manufactureDate.getYear(),manufactureDate.getMonth(),manufactureDate.getDate()), 
+                new java.sql.Date(expieryDate.getYear(),expieryDate.getMonth(),expieryDate.getDate()), size, color, sellerId);
+        
+            pdd.create(pd);
+        } 
+        else if(mode.equals("e")){}
+        else if(mode.equals("u")){}
+        else if(mode.equals("d")){}
         }
-        response.sendRedirect("Product.jsp");
+        response.sendRedirect("productDetails.jsp");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
