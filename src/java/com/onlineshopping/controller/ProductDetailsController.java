@@ -8,6 +8,7 @@ package com.onlineshopping.controller;
 
 import com.onlineshopping.DAO.ProductDAO;
 import com.onlineshopping.DAO.ProductDetailsDAO;
+import com.onlineshopping.model.Product;
 import com.onlineshopping.model.ProductDetails;
 import com.onlineshopping.service.ProductDAOImpl;
 import com.onlineshopping.service.ProductDetailsDAOImpl;
@@ -51,7 +52,12 @@ public class ProductDetailsController extends HttpServlet {
         ProductDetailsDAO pdd=new ProductDetailsDAOImpl();
         ProductDAO pdo=new ProductDAOImpl();
         if(mode.equals("r")){
-            session.setAttribute("products",pdo.read());
+            try{
+             int id=Integer.parseInt(request.getParameter("id"));
+                session.setAttribute("products",pdo.read(new Product(id)));
+            }catch(Exception e){
+                session.setAttribute("products",pdo.read());
+            }
         }
         else{
         long serialNumber=Long.parseLong(request.getParameter("serialNumber"));

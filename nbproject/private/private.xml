@@ -2,6 +2,17 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group/>
+        <group>
+            <file>file:/C:/Users/iamsu/Documents/NetBeansProjects/OnlineShopping/src/java/com/onlineshopping/model/CartItem.java</file>
+            <file>file:/C:/Users/iamsu/Documents/NetBeansProjects/OnlineShopping/web/ViewProducts.jsp</file>
+            <file>file:/C:/Users/iamsu/Documents/NetBeansProjects/OnlineShopping/web/Product.jsp</file>
+            <file>file:/C:/Users/iamsu/Documents/NetBeansProjects/OnlineShopping/src/java/com/onlineshopping/service/CartDAOImpl.java</file>
+            <file>file:/C:/Users/iamsu/Documents/NetBeansProjects/OnlineShopping/web/Manage.jsp</file>
+            <file>file:/C:/Users/iamsu/Documents/NetBeansProjects/OnlineShopping/src/java/com/onlineshopping/controller/ProductDetailsController.java</file>
+            <file>file:/C:/Users/iamsu/Documents/NetBeansProjects/OnlineShopping/src/java/com/onlineshopping/DAO/CartDAO.java</file>
+            <file>file:/C:/Users/iamsu/Documents/NetBeansProjects/OnlineShopping/src/java/com/onlineshopping/controller/UserController.java</file>
+            <file>file:/C:/Users/iamsu/Documents/NetBeansProjects/OnlineShopping/src/java/com/onlineshopping/model/Cart.java</file>
+            <file>file:/C:/Users/iamsu/Documents/NetBeansProjects/OnlineShopping/src/java/com/onlineshopping/controller/ProductController.java</file>
+        </group>
     </open-files>
 </project-private>

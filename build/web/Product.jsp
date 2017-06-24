@@ -78,6 +78,7 @@
                     <td>${p.categoryId}</td>
                     <td><a href="Product?m=e&&id=${p.id}">Edit</a></td>
                     <td><a href="Product?m=d&&id=${p.id}">delete</a></td>
+                    <td><a href="ProductDetails?m=r&&id=${p.id}">View Sellers</a></td>
                 </tr>
             </c:forEach>
         </table>

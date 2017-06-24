@@ -60,7 +60,7 @@
                     <a href='#'>Sign Up</a>
                 </c:if>
                 <c:if test="${roles[1].roleName=='Admin'}">
-                    <a href="admin.jsp">Manage Site</a>
+                    <a href="Manage.jsp">Manage Site</a>
                 </c:if>
                 <c:if test="${roles[1].roleName=='Seller'}">
                     <a href="seller.jsp">Manage Store</a>

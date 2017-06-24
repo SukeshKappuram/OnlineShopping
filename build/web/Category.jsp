@@ -13,6 +13,9 @@
         <title>JSP Page</title>
     </head>
     <body>
+        <c:if test="${empty param.r}">
+            <c:redirect url="Category?m=r"/>
+        </c:if>
         <form method="POST">
             <table>
                 <tr>
@@ -52,6 +55,7 @@
                     <td>${c.description}</td>
                     <td><a href="Category?m=e&&id=${c.id}">Edit</a></td>
                     <td><a href="Category?m=d&&id=${c.id}">delete</a></td>
+                    <td><a href="Product?m=r&&id=${c.id}">View Products</a></td>
                 </tr>
             </c:forEach>
         </table>

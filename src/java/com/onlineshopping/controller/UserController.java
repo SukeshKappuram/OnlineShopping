@@ -6,10 +6,13 @@
 
 package com.onlineshopping.controller;
 
+import com.onlineshopping.DAO.CartDAO;
 import com.onlineshopping.DAO.RoleDAO;
 import com.onlineshopping.DAO.UserDAO;
+import com.onlineshopping.model.Cart;
 import com.onlineshopping.model.Role;
 import com.onlineshopping.model.User;
+import com.onlineshopping.service.CartDAOImpl;
 import com.onlineshopping.service.MailService;
 import com.onlineshopping.service.RoleDAOImpl;
 import com.onlineshopping.service.UserDAOImpl;
@@ -87,8 +90,10 @@ public class UserController extends HttpServlet {
                 if(ud.create(u)>0){
                     u=ud.read(u);
                     Role r=new Role("Customer", u.getId());
-                    
                     rdo.createRole(r);
+                    Cart cart=new Cart(u.getId());
+                    CartDAO cd=new CartDAOImpl();
+                    cd.create(cart);
                     MailService ms=new MailService();
                 try {
                     ms.verifyMail(mailId, firstName+" "+lastName);

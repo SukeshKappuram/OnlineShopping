@@ -67,7 +67,7 @@ public class CategoryController extends HttpServlet {
             }
         }
         session.setAttribute("categories", cd.read());
-        response.sendRedirect("Category.jsp");
+        response.sendRedirect("Category.jsp?r=t");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

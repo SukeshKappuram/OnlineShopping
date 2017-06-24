@@ -65,8 +65,18 @@ public class ProductController extends HttpServlet {
                 pd.update(p);
                 session.setAttribute("product", null);
             }
-        }else if(mode.equals("r")){
-        
+        }else if(mode.equals("v")){
+            session.setAttribute("vproducts", pd.read());
+            response.sendRedirect("ViewProducts.jsp");
+        }
+        else if(mode.equals("r")){
+            try{
+                int categoryId=Integer.parseInt(request.getParameter("id"));
+                Category c=new Category(categoryId);
+                session.setAttribute("products", pd.read(c));
+            }catch(Exception e){
+                
+            }
         }
         else{
             int productId=Integer.parseInt(request.getParameter("id"));
