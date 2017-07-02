@@ -6,45 +6,46 @@
 
 package com.onlineshopping.model;
 
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  *
  * @author iamsu
  */
 public class Cart {
-    private int cartId;
-    private int userId;
+    private int Id;
+    private User user;
+    private Set<CartItem> cartItems=new HashSet<>();
+
+    public Cart() {
+    }
     
-
-    private List<CartItem> cartItems;
-    
-    
-    public Cart(int userId) {
-        this.userId = userId;
+    public Cart(User user) {
+        this.user = user;
     }
 
-    public int getUserId() {
-        return userId;
+    public User getUser() {
+        return user;
     }
 
-    public void setUserId(int userId) {
-        this.userId = userId;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public int getCartId() {
-        return cartId;
+    public int getId() {
+        return Id;
     }
 
-    public void setCartId(int cartId) {
-        this.cartId = cartId;
+    public void setId(int Id) {
+        this.Id = Id;
     }
 
-    public List<CartItem> getCartItems() {
+    public Set<CartItem> getCartItems() {
         return cartItems;
     }
 
-    public void setCartItems(List<CartItem> cartItems) {
+    public void setCartItems(Set<CartItem> cartItems) {
         this.cartItems = cartItems;
     }
     

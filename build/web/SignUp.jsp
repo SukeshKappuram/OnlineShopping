@@ -25,8 +25,9 @@
                 </tr>
                 <tr>
                     <td>
-                        <input type="email" name="mailId" value="${param.mailId}" placeholder="Email Id" required="true"/>
+                        <input type="email" id="mailId" name="mailId" value="${param.mailId}" placeholder="Email Id" required="true" onkeyup="isNewMail()"/>
                     </td>
+                    <td><div id="message"></div></td>
                 </tr>
                 <tr>
                     <td>
@@ -70,5 +71,29 @@
                 </tr>
             </table>
         </form>
+                    <script>
+                        var dis=document.getElementById("message");
+                        function isNewUser(){
+                            var req;
+                            var idFld=document.getElementById("mailId");
+                            var url="ValidateMail?mailid="+encodeURIComponent(idFld);
+                            if(window.XMLHttpRequest){
+                                req=new XMLHttpRequest();
+                            }else if(window.ActiveXObject){
+                                req=new ActiveXObject("Microsoft.XMLHTTP");
+                            }else{
+                                
+                            }
+                            req.open("GET",url,true);
+                            req.send(null);
+                            req.onreadystatechange = callback;
+                            
+                            function callback(){
+                                if(req.readyState == 4 && req.status == 200){
+                                    dis.innerHTML=req.responseText;
+                                }
+                            }
+                        }
+                    </script>
     </body>
 </html>

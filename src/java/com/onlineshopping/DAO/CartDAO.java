@@ -17,9 +17,9 @@ import java.util.Set;
  */
 public interface CartDAO {
     public Cart create(Cart c);
-  //  public void add(Cart c);
+    public void add(Cart c);
     public Cart read(Cart c);
-//    public Set<CartItem> read(Cart c,User Id);
+    public Set<CartItem> read(Cart c,User Id);
     public void update(Cart c);
     public void delete(Cart c);
 }

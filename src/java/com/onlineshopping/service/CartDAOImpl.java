@@ -29,7 +29,7 @@ public class CartDAOImpl implements CartDAO{
         try{
         ds.setCon();
         ds.setSt("insert into Cart(Userid) values (?)");
-        ds.getSt().setInt(1,c.getUserId());
+        ds.getSt().setInt(1,c.getUser().getId());
         ds.getSt().executeUpdate();
         ds.getCon().commit();
         ds.getCon().close();
@@ -50,22 +50,22 @@ public class CartDAOImpl implements CartDAO{
         try{
             ds.setCon();
             ds.setSt("select * from Cart where userId= ?");
-            ds.getSt().setInt(1, c.getUserId());
+            ds.getSt().setInt(1, c.getUser().getId());
             ResultSet rs= ds.getSt().executeQuery();
             if(rs.next()){
-                    c.setCartId(rs.getInt("Id"));
+                    c.setId(rs.getInt("Id"));
             }
         }catch(Exception e){}
         return c;
     }
-/*
+
     @Override
-    public Set<CartItem> read(Cart cart,int userId) {
+    public Set<CartItem> read(Cart cart,User u) {
         Set<CartItem> cartItems = new HashSet<>();
              try{
             ds.setCon();
             ds.setSt("select * from CartItem where cartId= ?");
-            ds.getSt().setInt(1, cart.getCartId());
+            ds.getSt().setInt(1, cart.getId());
             ResultSet rs= ds.getSt().executeQuery();
             while(rs.next()){
                 CartItem ci=new CartItem();
@@ -82,7 +82,7 @@ public class CartDAOImpl implements CartDAO{
         }catch(Exception e){}
         return cartItems;
     }
-*/
+
     @Override
     public void update(Cart c) {
     }
@@ -90,7 +90,7 @@ public class CartDAOImpl implements CartDAO{
     @Override
     public void delete(Cart c) {
     }
-/*
+
     @Override
     public void add(Cart c) {
         try{
@@ -98,7 +98,7 @@ public class CartDAOImpl implements CartDAO{
         for(CartItem i:c.getCartItems()){
             System.out.println("Cartitem "+i);
             try{
-            for(CartItem ci:read(c,c.getUserId())){
+            for(CartItem ci:read(c,c.getUser())){
                 System.out.println("Comparing");
                 if(ci.getId()==i.getId()){
                     ds.setSt("Update CartItem set quantity=? where id=?");
@@ -128,5 +128,5 @@ public class CartDAOImpl implements CartDAO{
             System.out.println(e);
         }
     }
-  */  
+    
 }

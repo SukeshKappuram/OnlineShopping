@@ -16,7 +16,9 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.ServletException;
@@ -82,13 +84,36 @@ public class ProductDetailsController extends HttpServlet {
                 new java.sql.Date(manufactureDate.getYear(),manufactureDate.getMonth(),manufactureDate.getDate()), 
                 new java.sql.Date(expieryDate.getYear(),expieryDate.getMonth(),expieryDate.getDate()), size, color, sellerId);
         
-            pdd.create(pd);
+            if(!mode.equals("u")){
+                pdd.create(pd);
+            }
+            if(mode.equals("u")){
+                pdd.update(pd);
+                session.setAttribute("productDetails", null);
+            }
         } 
-        else if(mode.equals("e")){}
-        else if(mode.equals("u")){}
-        else if(mode.equals("d")){}
+        else {
+                serialNumber=Integer.parseInt(request.getParameter("id"));
+                ProductDetails p=pdd.read(new ProductDetails(serialNumber));
+                if(mode.equals("e")){
+                    session.setAttribute("productDetails", p);
+                    List<Product> products=new ArrayList<>();
+                    Product pc=pdo.read(new Product(p.getProductId()));
+                    out.println("Product "+pc.getName());
+                    products.add(pc);
+                    for(Product c:pdo.read()){
+                    if(!c.getName().equals(pc.getName())){
+                        products.add(c);
+                    }
+                }
+                session.setAttribute("products", products);
+            }
+            if(mode.equals("d")){
+                pdd.delete(p);
+            }
         }
         response.sendRedirect("productDetails.jsp");
+    }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

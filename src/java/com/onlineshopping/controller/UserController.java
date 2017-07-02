@@ -91,7 +91,7 @@ public class UserController extends HttpServlet {
                     u=ud.read(u);
                     Role r=new Role("Customer", u.getId());
                     rdo.createRole(r);
-                    Cart cart=new Cart(u.getId());
+                    Cart cart=new Cart(u);
                     CartDAO cd=new CartDAOImpl();
                     cd.create(cart);
                     MailService ms=new MailService();

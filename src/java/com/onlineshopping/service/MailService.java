@@ -42,9 +42,9 @@ public class MailService {
         return false;
     }
     
-    public static void main(String[] arg){
+    public static void main(String[] arg) throws SQLException{
         MailService m=new MailService();
-        //m.verifyMail();
+        m.verifyMail("iamsukeshk@gmail.com","Sukesh");
     }
     
     public boolean sendMail(String toMail,String userName,String OTP){

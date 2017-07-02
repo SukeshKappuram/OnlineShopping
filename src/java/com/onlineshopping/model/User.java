@@ -20,6 +20,12 @@ public class User {
     private String password;
     private String status;
     private String OTP;
+
+    public User(int Id) {
+        this.Id = Id;
+    }
+    
+    
     
     public User(String firstName, String lastName, String mailId, String phoneNumber, String password) {
         this.firstName = firstName;

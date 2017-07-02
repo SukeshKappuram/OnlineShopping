@@ -17,4 +17,5 @@ public interface UserDAO {
     public int update(User u);
     public int delete(User u);
     public boolean validateUser(User u,String OTP);
+    public boolean isNewUser(User u);
 }

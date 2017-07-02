@@ -6,25 +6,52 @@
 
 package com.onlineshopping.model;
 
+
 /**
  *
  * @author iamsu
  */
 public class CartItem {
-    private int id;
-    private int cartId;
-    private int productId;
+    private int Id;
+    private Cart cart;
+    private Product product;
     private int quantity;
 
     public CartItem() {
     }
 
-    
-    
-    public CartItem(int cartId, int productId, int quantity) {
-        this.cartId = cartId;
-        this.productId = productId;
+    public CartItem( Cart cart, Product product, int quantity) {
+        this.cart = cart;
+        this.product = product;
         this.quantity = quantity;
+    }
+    
+    public CartItem(int Id) {
+        this.Id=Id;
+    }
+
+    public int getId() {
+        return Id;
+    }
+
+    public void setId(int Id) {
+        this.Id = Id;
+    }
+
+    public Cart getCart() {
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
     }
 
     public int getQuantity() {
@@ -33,30 +60,6 @@ public class CartItem {
 
     public void setQuantity(int quantity) {
         this.quantity = quantity;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
-    public int getCartId() {
-        return cartId;
-    }
-
-    public void setCartId(int cartId) {
-        this.cartId = cartId;
-    }
-
-    public int getProductId() {
-        return productId;
-    }
-
-    public void setProductId(int productId) {
-        this.productId = productId;
     }
     
     
